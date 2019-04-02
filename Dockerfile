@@ -55,9 +55,14 @@ RUN set -ex \
     && pip install pytz \
     && pip install pyOpenSSL \
     && pip install ndg-httpsclient \
+    && pip install slackclient \
+    && pip install psycopg2 \
+    && pip install psycopg2-binary \
     && pip install pyasn1 \
-    && pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}]==${AIRFLOW_VERSION} \
-    && pip install 'redis>=2.10.5,<3' \
+    && pip install flower \
+    && pip3 install --no-cache-dir "tornado>=4.2.0,<6.0.0" \
+    && pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,redis,flask,ssh${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}]==${AIRFLOW_VERSION} \
+    && pip install 'redis>=3.2.0,<4' \
     && if [ -n "${PYTHON_DEPS}" ]; then pip install ${PYTHON_DEPS}; fi \
     && apt-get purge --auto-remove -yqq $buildDeps \
     && apt-get autoremove -yqq --purge \
